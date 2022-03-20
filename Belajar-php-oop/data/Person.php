@@ -5,8 +5,8 @@ class Person
     const AUTHOR = "Andreas Marcelino Andriawan";
 
     var string $name;
-    var ?string $address = null;
-    var string $country = "Unknown";
+    var ?string $address;
+    var string $country = "Indonesia";
 
     function sayHello(?string $name)
     {

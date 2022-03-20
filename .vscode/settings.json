@@ -1,7 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "semester-04/pbo-java",
-        ".vscode"
+        ".vscode",
+        "semester-04"
     ],
     "java.help.shareDiagnostics": true
 }
