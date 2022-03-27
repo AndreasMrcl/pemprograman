@@ -1,7 +1,6 @@
 {
     "java.project.sourcePaths": [
-        ".vscode",
-        "semester-04"
+        "semester-04\\pbo-java\\04-latihan"
     ],
     "java.help.shareDiagnostics": true
 }
