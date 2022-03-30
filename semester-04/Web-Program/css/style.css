@@ -1,0 +1,30 @@
+body {
+    background-image: url(../Images/bg.jpg);
+}
+
+header {
+    text-align: center;
+}
+
+.flex-container {
+    display: flex;
+    background-color: aqua;
+}
+
+nav {
+    border: 10px;
+    background-color:aquamarine;
+}
+
+nav ul li {
+    text-decoration: underline;
+    display: inline;
+    margin: 10px;
+}
+
+footer {
+    background-color: aliceblue;
+    margin-top: 10px;
+    text-align: center;
+}
+
