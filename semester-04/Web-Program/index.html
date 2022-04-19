@@ -4,35 +4,84 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Biografi</title>
   </head>
   <body> 
-    <header>
-    <h1>My Website</h1>
-    <p>Biografi</p>
-    </header>
-    <nav>
-      <ul>
-        <li>Home</li>
-        <li>About Me</li>
-        <li>Help</li>
-      </ul>
-    </nav>
-    <div class="flex-container">
-      <img src="Images/img-1.jpeg" alt="Profile" width="200px" />
-      <ol>
-        <li>NIM : A12.2020.06492</li>
-        <li>Nama : Andreas Marcelino Andriawan</li>
-        <li>Alamat : Graha Pesona Jatisari B1-16</li>
-        <li>Jenis Kelamin : Laki-laki</li>
-        <li>Tempat,Tanggal Lahir : Semarang, 27 Maret 2002</li>
-        <li>Asal Sekolah : SMAN 10 Semarang</li>
-        <li>Email : andreasmrcl2@gmail.com</li>
-      </ol>
+    <div class="jumbotron text-center" style="margin-bottom:0">
+      <h1>My Website</h1> 
     </div>
-    <footer>
-      <p>Copyright@2022-AndreasMrcl</p>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Biografi</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Help</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container mt-5">
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center mb-2">
+          <img src="../Web-Program/Images/img-1.jpeg" alt="My Photo" width="230px">
+        </div>
+        <div class="col-md-8">
+          <table class="table table-dark table-striped text-ce">
+            <tbody>
+              <tr>
+                <th scope="row">NIM</th>
+                <td>:</td>
+                <td>A12.2020.06492</td>
+              </tr>
+              <tr>
+                <th scope="row">Nama</th>
+                <td>:</td>
+                <td>Andreas Marcelino Andriawan</td>
+              </tr>
+              <tr>
+                <th scope="row">Alamat</th>
+                <td>:</td>
+                <td>Graha Pesona Jatisari B1-16</td>
+              </tr>
+              <tr>
+                <th scope="row">Jenis Kelamin</th>
+                <td>:</td>
+                <td>Laki-laki</td>
+              </tr>
+              <tr>
+                <th scope="row">Tempat, Tanggal Lahir</th>
+                <td>:</td>
+                <td>Semarang, 27 Maret 2002</td>
+              </tr>
+              <tr>
+                <th scope="row">Asal Sekolah</th>
+                <td>:</td>
+                <td>SMAN 10 Semarang</td>
+              </tr>
+              <tr>
+                <th scope="row">Email</th>
+                <td>:</td>
+                <td>112202006492@gmail.com</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div> 
+    </div>
+    <footer class="bg-dark text-center text-light">
+      <hr />
+      <p>&copy;Pemrograman Web</p>
+      <hr />
     </footer>
   </body>
 </html>
