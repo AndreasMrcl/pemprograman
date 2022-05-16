@@ -1,6 +1,10 @@
 {
     "java.project.sourcePaths": [
-        "semester-04\\pbo-java\\04-latihan"
+        "semester-04\\pbo-java\\08-latihan"
     ],
-    "java.help.shareDiagnostics": true
+    "java.help.shareDiagnostics": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\MODERN\\Downloads\\Compressed\\mysql-connector-java-8.0.29\\mysql-connector-java-8.0.29.jar"
+    ]
 }
