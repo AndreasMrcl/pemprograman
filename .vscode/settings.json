@@ -6,5 +6,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "c:\\Users\\MODERN\\Downloads\\Compressed\\mysql-connector-java-8.0.29\\mysql-connector-java-8.0.29.jar"
-    ]
+    ],
+    "editor.formatOnSave": true
 }
