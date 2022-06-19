@@ -13,17 +13,20 @@ function query($query)
     return $rows;
 }
 
-function insert($data)
+function insert($val)
 {
     global $conn;
-    $kodeBarang = $data["kode-barang"];
-    $namaBarang = $data["nama-barang"];
-    $hargaBarang = $data["harga-barang"];
-    $gambarBarang = $data["gambar-barang"];
+    $kodeBarang = $val["kodeBarang"];
+    $namaBarang = $val["namaBarang"];
+    $hargaBarang = $val["hargaBarang"];
+    $gambarBarang =  $val["gambarBarang"];
 
-    $query = "INSERT INTO barang VALUES ('$kodeBarang', '$namaBarang', '$hargaBarang', '$gambarBarang')";
+
+    $query = "INSERT INTO barang VALUES ('$kodeBarang', '$namaBarang', '$hargaBarang', '$gambarBarang' )";
 
     mysqli_query($conn, $query);
+
+
     $rowAffected = mysqli_affected_rows($conn);
     mysqli_close($conn);
 
@@ -56,4 +59,9 @@ function update($data)
     mysqli_close($conn);
 
     return $rowAffected;
+}
+function search($keyword)
+{
+    $query = "SELECT * FROM barang WHERE kdbrg LIKE '%$keyword%' OR nmbrg LIKE '%$keyword%' OR hrgbrg LIKE '%$keyword%'";
+    return query($query);
 }

@@ -6,15 +6,62 @@ $message = "Gagal ditambahkan!";
 $namaBarang = "";
 $hargaBarang = "";
 $gambarBarang = "";
+$date = new DateTime();
+
+
+echo $date->format('Y-m-d\TH:i:s');
+
+if (isset($_FILES["gambar-barang"])) {
+    $isImgUploaded = true;
+
+    $fileName =  $date->format('Y-m-d\TH:i:s') . "-" . $_FILES["gambar-barang"]["name"];
+    $folderFileImage = __DIR__ . "/imgs/";
+    $file = $folderFileImage . $fileName;
+
+    echo $file;
+
+    if (file_exists($file)) {
+        $isImgUploaded = false;
+        echo "File ada";
+    }
+
+    if ($_FILES["gambar-barang"]["size"] > 1000000) {
+        echo "Maaf, ukuran file harus kurang dari 1MB";
+        $isImgUploaded = false;
+    }
+
+    $catImageFile = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
+
+    if (!in_array($_FILES["gambar-barang"]["type"], $catImageFile)) {
+        echo "Maaf, hanya file JPG, JPEG, PNG, dan FIG yang diperbolehkan";
+        $isImgUploaded = false;
+    }
+
+    if ($isImgUploaded) {
+        if (move_uploaded_file($_FILES["gambar-barang"]["tmp_name"], $file)) {
+        } else {
+            echo "Kesalahan terjadi";
+        }
+    } else {
+        echo "Maaf, file tidak terupload";
+    }
+}
+
 
 if (isset($_POST["add-item"])) {
     $modal = true;
-    if (insert($_POST) > 0) {
+    $request = [
+        "kodeBarang" => $_POST["kode-barang"],
+        "namaBarang" => $_POST["nama-barang"],
+        "hargaBarang" => $_POST["harga-barang"],
+        "gambarBarang" => $_FILES["gambar-barang"]["name"]
+    ];
+    if (insert($request) > 0) {
         $message = "Berhasil ditambahkan!";
     } else {
         $namaBarang = $_POST["nama-barang"];
         $hargaBarang = $_POST["harga-barang"];
-        $gambarBarang = $_POST["gambar-barang"];
+        $gambarBarang = $_FILES["gambar-barang"]['name'];
     }
 };
 ?>
@@ -29,39 +76,45 @@ if (isset($_POST["add-item"])) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/mystyle.css">
 
     <title>Tambah Barang</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="my-4">
-            <h1>Tambah Barang</h1>
-        </div>
-        <div>
-            <form action="" method="post">
-                <div class="mb-3">
-                    <label for="kode-barang" class="form-label">Kode</label>
-                    <input type="text" name="kode-barang" class="form-control" id="kode-barang" autocomplete="off">
-                </div>
-                <div class=" mb-3">
-                    <label for="nama-barang" class="form-label">Nama</label>
-                    <input type="text" name="nama-barang" class="form-control" id="nama-barang" autocomplete="off" value="<?= $namaBarang ?>">
-                </div>
-                <div class=" mb-3">
-                    <label for="harga-barang" class="form-label">Harga</label>
-                    <input type="text" name="harga-barang" class="form-control" id="harga-barang" autocomplete="off" value="<?= $hargaBarang ?>">
-                </div>
-                <div class=" mb-3">
-                    <label for="gambar-barang" class="form-label">Gambar</label>
-                    <input type="file" name="gambar-barang" class="form-control" id="gambar-barang" autocomplete="off">
-                </div>
-                <button type="submit" name="add-item" class="btn btn-success">Tambah Barang</button>
-            </form>
+    <div class="flex-box">
+        <!-- <?php require "sidebar.php" ?> -->
+        <div class="main-content">
+            <div class="my-4">
+                <h1>Tambah Barang</h1>
+            </div>
+            <div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="kode-barang" class="form-label">Kode</label>
+                        <input type="text" name="kode-barang" class="form-control" id="kode-barang" autocomplete="off">
+                    </div>
+                    <div class=" mb-3">
+                        <label for="nama-barang" class="form-label">Nama</label>
+                        <input type="text" name="nama-barang" class="form-control" id="nama-barang" autocomplete="off" value="<?= $namaBarang ?>">
+                    </div>
+                    <div class=" mb-3">
+                        <label for="harga-barang" class="form-label">Harga</label>
+                        <input type="text" name="harga-barang" class="form-control" id="harga-barang" autocomplete="off" value="<?= $hargaBarang ?>">
+                    </div>
+                    <div class=" mb-3">
+                        <label for="gambar-barang" class="form-label">Gambar</label>
+                        <input type="file" name="gambar-barang" class="form-control" id="gambar-barang" autocomplete="off">
+                    </div>
+                    <button type="submit" name="add-item" class="btn btn-success">Tambah Barang</button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <?php if ($modal) { ?>
+    <?php
+
+    if ($modal) { ?>
         <!-- Modal -->
         <div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
             <div class="modal-dialog">

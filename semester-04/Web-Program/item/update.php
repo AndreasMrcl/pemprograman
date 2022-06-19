@@ -1,5 +1,12 @@
 <?php
 require dirname(__DIR__) . "/util/function.php";
+
+$modal = false;
+$message = "Gagal ditambahkan!";
+$namaBarang = "";
+$hargaBarang = "";
+$gambarBarang = "";
+
 if (isset($_GET["kdbrg"])) {
     $kodeBarang = $_GET["kdbrg"];
 } else {
@@ -9,9 +16,14 @@ if (isset($_GET["kdbrg"])) {
 
 $brg = query("SELECT * FROM barang WHERE kdbrg = '$kodeBarang'")[0];
 
+var_dump($brg);
+die();
+
 $message = "";
 
-if (isset($_POST["add-item"])) {
+
+
+if (isset($_POST["update-item"])) {
     if (update($_POST) > 0) {
         $kodeBarang = $_POST["kode-barang"];
         header("Location: index.php?update=true&kode-barang='{$kodeBarang}'");
@@ -48,7 +60,7 @@ if (isset($_POST["add-item"])) {
             <?php } ?>
         </div>
         <div>
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="kode-barang" class="form-label">Kode</label>
                     <input type="text" name="kode-barang" class="form-control" id="kode-barang" autocomplete="off" value="<?= $brg["kdbrg"] ?>" readonly>
@@ -65,7 +77,7 @@ if (isset($_POST["add-item"])) {
                     <label for="gambar-barang" class="form-label">Gambar</label>
                     <input type="file" name="gambar-barang" class="form-control" id="gambar-barang" autocomplete="off" value="<?= $brg["filegbr"] ?>">
                 </div>
-                <button type=" submit" name="add-item" class="btn btn-success">Update Barang</button>
+                <button type=" submit" name="update-item" class="btn btn-success">Update Barang</button>
             </form>
         </div>
     </div>
