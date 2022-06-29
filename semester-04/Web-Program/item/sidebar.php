@@ -1,7 +1,6 @@
 <div class="sidebar">
-    <h1>SIA Administrator</h1>
-    <a href="index.php">Dashboard</a>
-    <a href="index.php">Barang</a>
-    <a href="#">Mata Kuliah</a>
-    <a href="#">Logout1</a>
+    <h1>Program CRUD</h1>
+    <a href="../index.php">Dashboard</a>
+    <a href="<?= dirname($_SERVER['PHP_SELF']) . "/item" ?>">Barang</a>
+    <a href="#">Logout</a>
 </div>

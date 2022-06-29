@@ -7,6 +7,7 @@ $namaBarang = "";
 $hargaBarang = "";
 $gambarBarang = "";
 
+
 if (isset($_GET["kdbrg"])) {
     $kodeBarang = $_GET["kdbrg"];
 } else {
@@ -14,17 +15,54 @@ if (isset($_GET["kdbrg"])) {
     exit();
 }
 
-$brg = query("SELECT * FROM barang WHERE kdbrg = '$kodeBarang'")[0];
+$barang = query("SELECT * FROM barang WHERE kdbrg = '$kodeBarang'")[0];
 
-var_dump($brg);
-die();
+// var_dump($barang);
+// die();
 
 $message = "";
+$imageNameMove = "";
 
+if (isset($_FILES["gambar-barang"])) {
+    if ($_FILES["gambar-barang"]["size"] > 0) {
+        $isImgUploaded = true;
 
+        if ($_FILES["gambar-barang"]["size"] > 1000000) {
+            $message = "Maaf, ukuran file harus kurang dari 1MB";
+            $isImgUploaded = false;
+        }
+        // var_dump($isImgUploaded); die();
+        $catImageFile = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
+        $imageName = $_FILES["gambar-barang"]["name"];
+        $imageNameMove =  time() . "-" . $imageName;
+
+        if (!in_array($_FILES["gambar-barang"]["type"], $catImageFile)) {
+            $message = "Maaf, hanya file JPG, JPEG, PNG, dan FIG yang diperbolehkan";
+            $isImgUploaded = false;
+        }
+        // var_dump($isImgUploaded); die();
+        if ($isImgUploaded) {
+            if (move_uploaded_file($_FILES["gambar-barang"]["tmp_name"], __DIR__ . "/imgs/" . $imageNameMove)) {
+                $message = "Berhasil dibuat!";
+            } else {
+                $message = "Kesalahan terjadi";
+            }
+        } else {
+            $message = "Maaf, file tidak terupload";
+        }
+    } else {
+        $imageNameMove = $barang["filegbr"];
+    }
+}
 
 if (isset($_POST["update-item"])) {
-    if (update($_POST) > 0) {
+    $request = [
+        "kodeBarang" => $_POST["kode-barang"],
+        "namaBarang" => $_POST["nama-barang"],
+        "hargaBarang" => $_POST["harga-barang"],
+        "gambarBarang" => $imageNameMove
+    ];
+    if (update($request) > 0) {
         $kodeBarang = $_POST["kode-barang"];
         header("Location: index.php?update=true&kode-barang='{$kodeBarang}'");
     } else {
@@ -44,41 +82,47 @@ if (isset($_POST["update-item"])) {
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/mystyle.css">
 
     <title>Update Barang</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="my-4">
-            <h1>Ubah Barang</h1>
-            <?php if ($message) { ?>
-                <div class="alert <?= $alertType ?> alert-dismissible fade show" role="alert">
-                    <?= $message ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php } ?>
-        </div>
-        <div>
-            <form action="" method="post" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="kode-barang" class="form-label">Kode</label>
-                    <input type="text" name="kode-barang" class="form-control" id="kode-barang" autocomplete="off" value="<?= $brg["kdbrg"] ?>" readonly>
-                </div>
-                <div class="mb-3">
-                    <label for="nama-barang" class="form-label">Nama</label>
-                    <input type="text" name="nama-barang" class="form-control" id="nama-barang" autocomplete="off" value="<?= $brg["nmbrg"] ?>">
-                </div>
-                <div class=" mb-3">
-                    <label for="harga-barang" class="form-label">Harga</label>
-                    <input type="text" name="harga-barang" class="form-control" id="harga-barang" autocomplete="off" value="<?= $brg["hrgbrg"] ?>">
-                </div>
-                <div class=" mb-3">
-                    <label for="gambar-barang" class="form-label">Gambar</label>
-                    <input type="file" name="gambar-barang" class="form-control" id="gambar-barang" autocomplete="off" value="<?= $brg["filegbr"] ?>">
-                </div>
-                <button type=" submit" name="update-item" class="btn btn-success">Update Barang</button>
-            </form>
+    <div class="flex-box">
+        <?php require "sidebar.php" ?>
+        <div class="main-content">
+            <div class="my-4">
+                <h1>Ubah Barang</h1>
+                <?php if ($message) { ?>
+                    <div class="alert <?= $alertType ?> alert-dismissible fade show" role="alert">
+                        <?= $message ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php } ?>
+            </div>
+            <div>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="kode-barang" class="form-label">Kode</label>
+                        <input type="text" name="kode-barang" class="form-control" id="kode-barang" autocomplete="off" value="<?= $barang["kdbrg"] ?>" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nama-barang" class="form-label">Nama</label>
+                        <input type="text" name="nama-barang" class="form-control" id="nama-barang" autocomplete="off" value="<?= $barang["nmbrg"] ?>">
+                    </div>
+                    <div class=" mb-3">
+                        <label for="harga-barang" class="form-label">Harga</label>
+                        <input type="text" name="harga-barang" class="form-control" id="harga-barang" autocomplete="off" value="<?= $barang["hrgbrg"] ?>">
+                    </div>
+                    <div class=" mb-3">
+                        <label for="gambar-barang" class="form-label">Gambar</label>
+                        <br>
+                        <img style="max-width: 100px;" src="<?= dirname($_SERVER['PHP_SELF']) . "/imgs/" . $barang["filegbr"]; ?>" alt="<?= $barang["filegbr"]; ?>" srcset="" class="img-thumbnail">
+                        <input type="file" name="gambar-barang" class="form-control" id="gambar-barang" autocomplete="off" value="<?= $barang["filegbr"] ?>">
+                    </div>
+                    <button type=" submit" name="update-item" class="btn btn-success">Update Barang</button>
+                </form>
+            </div>
         </div>
     </div>
 

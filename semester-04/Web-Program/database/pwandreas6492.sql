@@ -19,3 +19,11 @@ INSERT INTO users (
     'mhs',
     'mhs'
 );
+
+CREATE TABLE barang (
+    kdbrg CHAR(10),
+    nmbrg VARCHAR(50),
+    hrgbrg DOUBLE,
+    filegbr VARCHAR(50),
+    PRIMARY KEY (kdbrg)
+);

@@ -58,6 +58,10 @@ if (isset($_POST["search"])) {
                 <a type="button" class="btn btn-success" href="add.php">Tambah Data</a>
             </div>
 
+            <div class="mb-4">
+                <a type="button" class="btn btn-secondary" href="../pdf.php" target="_blank">Cetak ke PDF</a>
+            </div>
+
             <div class="my-4 container-fluid">
                 <form class="d-flex" role="search" method="post">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" autocomplete="off" name="keyword">
@@ -66,8 +70,7 @@ if (isset($_POST["search"])) {
             </div>
 
             <div>
-                <table class="table" border="1" cellpadding="10" cellspacing="0">
-
+                <table class="table" border="2" cellpadding="10" cellspacing="0">
                     <tbody>
                         <tr>
                             <th>No</th>

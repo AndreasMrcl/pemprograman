@@ -6,44 +6,33 @@ $message = "Gagal ditambahkan!";
 $namaBarang = "";
 $hargaBarang = "";
 $gambarBarang = "";
-$date = new DateTime();
 
-
-echo $date->format('Y-m-d\TH:i:s');
 
 if (isset($_FILES["gambar-barang"])) {
     $isImgUploaded = true;
 
-    $fileName =  $date->format('Y-m-d\TH:i:s') . "-" . $_FILES["gambar-barang"]["name"];
-    $folderFileImage = __DIR__ . "/imgs/";
-    $file = $folderFileImage . $fileName;
-
-    echo $file;
-
-    if (file_exists($file)) {
-        $isImgUploaded = false;
-        echo "File ada";
-    }
-
     if ($_FILES["gambar-barang"]["size"] > 1000000) {
-        echo "Maaf, ukuran file harus kurang dari 1MB";
+        $message = "Maaf, ukuran file harus kurang dari 1MB";
         $isImgUploaded = false;
     }
-
+    // var_dump($isImgUploaded); die();
     $catImageFile = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
+    $imageName = $_FILES["gambar-barang"]["name"];
+    $imageNameMove =  time() . "-" . $imageName;
 
     if (!in_array($_FILES["gambar-barang"]["type"], $catImageFile)) {
-        echo "Maaf, hanya file JPG, JPEG, PNG, dan FIG yang diperbolehkan";
+        $message = "Maaf, hanya file JPG, JPEG, PNG, dan FIG yang diperbolehkan";
         $isImgUploaded = false;
     }
-
+    // var_dump($isImgUploaded); die();
     if ($isImgUploaded) {
-        if (move_uploaded_file($_FILES["gambar-barang"]["tmp_name"], $file)) {
+        if (move_uploaded_file($_FILES["gambar-barang"]["tmp_name"], __DIR__ . "/imgs/" . $imageNameMove)) {
+            $message = "Berhasil dibuat!";
         } else {
-            echo "Kesalahan terjadi";
+            $message = "Kesalahan terjadi";
         }
     } else {
-        echo "Maaf, file tidak terupload";
+        $message = "Maaf, file tidak terupload";
     }
 }
 
@@ -54,7 +43,7 @@ if (isset($_POST["add-item"])) {
         "kodeBarang" => $_POST["kode-barang"],
         "namaBarang" => $_POST["nama-barang"],
         "hargaBarang" => $_POST["harga-barang"],
-        "gambarBarang" => $_FILES["gambar-barang"]["name"]
+        "gambarBarang" => $imageNameMove
     ];
     if (insert($request) > 0) {
         $message = "Berhasil ditambahkan!";
@@ -83,7 +72,7 @@ if (isset($_POST["add-item"])) {
 
 <body>
     <div class="flex-box">
-        <!-- <?php require "sidebar.php" ?> -->
+        <?php require "sidebar.php" ?>
         <div class="main-content">
             <div class="my-4">
                 <h1>Tambah Barang</h1>

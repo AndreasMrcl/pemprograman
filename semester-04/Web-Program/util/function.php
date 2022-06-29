@@ -44,13 +44,13 @@ function delete($kodeBarang)
     return $rowAffected;
 }
 
-function update($data)
+function update($val)
 {
     global $conn;
-    $kodeBarang = $data["kode-barang"];
-    $namaBarang = $data["nama-barang"];
-    $hargaBarang = $data["harga-barang"];
-    $gambarBarang = $data["gambar-barang"];
+    $kodeBarang = $val["kodeBarang"];
+    $namaBarang = $val["namaBarang"];
+    $hargaBarang = $val["hargaBarang"];
+    $gambarBarang =  $val["gambarBarang"];
 
     $query = "UPDATE barang SET nmbrg = '$namaBarang', hrgbrg = '$hargaBarang', filegbr = '$gambarBarang' WHERE kdbrg = '$kodeBarang'";
 
