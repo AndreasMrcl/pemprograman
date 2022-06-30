@@ -1,11 +1,11 @@
 {
-    "java.project.sourcePaths": [
-        "semester-04\\pbo-java\\11-latihan"
-    ],
-    "java.help.shareDiagnostics": true,
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "c:\\Users\\MODERN\\Downloads\\Compressed\\mysql-connector-java-8.0.29\\mysql-connector-java-8.0.29.jar"
-    ],
-    "editor.formatOnSave": true
+  "java.project.sourcePaths": [
+    "semester-04\\pbo-java\\uas"
+  ],
+  "java.help.shareDiagnostics": true,
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "c:\\Users\\MODERN\\Downloads\\Compressed\\mysql-connector-java-8.0.29\\mysql-connector-java-8.0.29.jar"
+  ],
+  "editor.formatOnSave": true
 }
